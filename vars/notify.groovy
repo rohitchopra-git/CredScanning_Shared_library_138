@@ -1,7 +1,7 @@
 def call(String jobName, String buildNumber, String buildUrl) {
 
     def SLACK_CHANNEL = '#jenkinsnotify'
-    def EMAIL_RECIPIENTS = 'anuj.yadav@mygurukulam.co'
+    def EMAIL_RECIPIENTS = 'rohit.chopra@mygurukulam.co'
 
     try {
         echo "Hello from Jenkins Library!"
