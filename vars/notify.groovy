@@ -1,4 +1,4 @@
-def call(String jobName, String buildNumber, String buildUrl, String reportName) {
+def call(String jobName, String buildNumber, String buildUrl) {
 
     def SLACK_CHANNEL = '#jenkinsnotify'
     def EMAIL_RECIPIENTS = 'rohit.chopra@mygurukulam.co'
@@ -15,12 +15,11 @@ def call(String jobName, String buildNumber, String buildUrl, String reportName)
             message: "✅ SUCCESS: Job '${jobName} [${buildNumber}]' completed successfully! <${buildUrl}|Details>"
         )
         
-        // Email Success Notification with Attachment
-        emailext (
+        // Email Success Notification
+        mail (
             to: EMAIL_RECIPIENTS,
             subject: "SUCCESS: Jenkins Job '${jobName} [${buildNumber}]'",
-            body: "Good news! The Jenkins job '${jobName} [${buildNumber}]' completed successfully.\nCheck details here: ${buildUrl}",
-            attachmentsPattern: reportName
+            body: "Good news! The Jenkins job '${jobName} [${buildNumber}]' completed successfully.\nCheck details here: ${buildUrl}"
         )
 
     } catch (err) {
@@ -34,7 +33,7 @@ def call(String jobName, String buildNumber, String buildUrl, String reportName)
         )
 
         // Email Failure Notification
-        emailext (
+        mail (
             to: EMAIL_RECIPIENTS,
             subject: "FAILURE: Jenkins Job '${jobName} [${buildNumber}]'",
             body: "Alert! The Jenkins job '${jobName} [${buildNumber}]' has FAILED.\nCheck logs here: ${buildUrl}"
